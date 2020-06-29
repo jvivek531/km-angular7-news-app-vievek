@@ -1,10 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewsApiService } from './news-api.service';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home.component';
+import { Routes, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
@@ -14,14 +12,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+export const routes: Routes = [
+  {path: '', component: HomeComponent}
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -33,11 +33,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatSidenavModule,
     MatListModule,
     MatSelectModule,
-    AppRoutingModule
+    MatChipsModule,
+    MatPaginatorModule,
+    RouterModule.forChild(routes)
   ],
-  providers: [
-    NewsApiService
-  ],
-  bootstrap: [AppComponent]
+  declarations: [
+    HomeComponent
+  ]
 })
-export class AppModule { }
+export class HomeModule { }

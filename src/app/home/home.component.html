@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field  class="example-chip-list">
+      <mat-label>Select a Source</mat-label>
+      <mat-select 
+        [(ngModel)]="sources" 
+        multiple
+        (selectionChange)="selectionChange()">
+        <mat-option *ngFor="let source of sourcesList" [value]="source.id">{{source.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>  
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-chip-list">
+      <mat-label>Select a Category</mat-label>
+      <mat-chip-list 
+        [selectable]="true">
+        <mat-chip
+          *ngFor="let category of categories"
+          #chip="matChip"
+          (click)="category.selected ? chip.deselect() : chip.selectViaInteraction()" 
+          [selected]="category.selected" 
+          [selectable]="true"
+          (selectionChange)="changeSelected($event, category)">
+          {{category.name}}
+        </mat-chip>
+      </mat-chip-list>
+    </mat-form-field>  
+  </div>
+  <div class="col-md-4">
+    <mat-paginator 
+      (page)="changePage($event)"
+      [length]="totalResults"
+      [pageSize]="pageSize">
+    </mat-paginator>
+  </div>
+</div>
+
+<mat-card class="example-card"  *ngFor="let article of mArticles">
+    <mat-card-header>
+      <div mat-card-avatar [ngStyle]="{'background-image': 'url(../assets/images/'+ article.source.id +'.png)'}" class="example-header-image"></div>
+      <mat-card-title class="title">{{article.title}}</mat-card-title>
+      <mat-card-subtitle>{{article.source.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="img-article" src={{article.urlToImage}} alt="">
+    <mat-card-content>
+      <p>
+        {{article.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="action-buttons">
+      <button mat-button color="primary" (click)="addToFavorite(article)"><mat-icon>thumb_up_alt</mat-icon>Favorite</button>
+      <a mat-button color="primary" href={{article.url}} target="_blank" ><mat-icon>visibility</mat-icon> More</a>
+    </mat-card-actions>
+  </mat-card>
+  
